@@ -1,0 +1,32 @@
+<template>
+    <lightning-card title="Client Local Weather" icon-name="utility:frozen">
+        <div class="slds-p-horizontal_medium">
+            <template if:true={loading}>
+                <div class="slds-align_absolute-center slds-p-vertical_medium">
+                    <lightning-spinner alt-text="Loading weather insights..." size="medium"></lightning-spinner>
+                </div>
+            </template>
+
+            <template if:false={loading}>
+                <template if:true={weatherData}>
+                    <div class="slds-grid slds-grid_vertical-align-center">
+                        <div class="slds-col slds-size_1-of-2">
+                            <span class="slds-text-heading_large slds-text-color_weak">{weatherData.temp}°C</span>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                            <p class="slds-text-heading_small slds-capitalize"><b>Condition:</b> {weatherData.description}</p>
+                            <p class="slds-text-color_weak slds-m-top_xx-small">Location: {cityName}</p>
+                        </div>
+                    </div>
+                </template>
+
+                <template if:true={error}>
+                    <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_warning" role="alert">
+                        <lightning-icon icon-name="utility:warning" size="x-small" alternative-text="Warning" class="slds-m-right_x-small"></lightning-icon>
+                        <h2>{error}</h2>
+                    </div>
+                </template>
+            </template>
+        </div>
+    </lightning-card>
+</template>
