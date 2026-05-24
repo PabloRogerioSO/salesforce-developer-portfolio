@@ -1,18 +1,33 @@
-# Salesforce DX Project: Next Steps
+# Salesforce Developer Portfolio — Client Weather Insights
 
-Now that you’ve created a Salesforce DX project, what’s next? Here are some documentation resources to get you started.
+A modern, cloud-integrated Salesforce application built using enterprise development practices. This repository showcases a hybrid architecture (Programmatic + Declarative) featuring a Lightning Web Component (LWC) that consumes an external REST API via an Apex controller layer.
 
-## How Do You Plan to Deploy Your Changes?
+## 🚀 Project Overview
 
-Do you want to deploy a set of changes, or create a self-contained application? Choose a [development model](https://developer.salesforce.com/tools/vscode/en/user-guide/development-models).
+The **Account Weather Insights** component is designed for B2B sales teams. It dynamically captures the `BillingCity` from an Account record page and fetches real-time weather metrics using a third-party weather service. This provides immediate environmental context to account executives right before client interactions.
 
-## Configure Your Salesforce DX Project
+### ⚙️ Architecture & Technical Highlights
 
-The `sfdx-project.json` file contains useful configuration information for your project. See [Salesforce DX Project Configuration](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_ws_config.htm) in the _Salesforce DX Developer Guide_ for details about this file.
+* **Apex Backend Integration:** Implements a robust `Http` callout pattern optimized with `@AuraEnabled(cacheable=true)` for client-side UI caching and lightning-fast performance.
+* **Security First (Named Credentials):** Architecture abstracts sensitive endpoints and API tokens out of the codebase using Salesforce **Named Credentials**, enforcing security compliance and ensuring no raw keys are leaked to version control.
+* **Reactive LWC:** Built using ES6+ JavaScript, utilizing native Lightning Data Service (`@wire`) field adapters to ensure automatic interface updates when record data changes.
+* **Robust Exception Handling:** Gracefully handles communication timeouts and bad API requests by catching server-side errors and surfacing them safely via customized `AuraHandledException` alerts on the UI.
+* **Enterprise Testing Design:** Tested via an asynchronous Mock framework (`HttpCalloutMock`) ensuring 100% test coverage across success paths and negative error-injection boundaries without breaking Salesforce governor execution rules.
 
-## Read All About It
+## 🛠️ Tech Stack & Tools
 
-- [Salesforce Extensions Documentation](https://developer.salesforce.com/tools/vscode/)
-- [Salesforce CLI Setup Guide](https://developer.salesforce.com/docs/atlas.en-us.sfdx_setup.meta/sfdx_setup/sfdx_setup_intro.htm)
-- [Salesforce DX Developer Guide](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_intro.htm)
-- [Salesforce CLI Command Reference](https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/cli_reference.htm)
+* **Salesforce Platform:** Apex, Lightning Web Components (LWC), Salesforce CLI (`sf`)
+* **Frontend:** HTML5, Modern JavaScript (ES6+), Salesforce Lightning Design System (SLDS)
+* **Quality Assurance:** Apex Unit Testing (Mocking Framework)
+* **DevOps / Version Control:** Git, GitHub, Conventional Commits standard
+
+## 📦 Repository Structure
+
+```text
+├── force-app/main/default/
+│   ├── classes/
+│   │   ├── AccountWeatherController.cls        # Main integration logic
+│   │   ├── AccountWeatherMock.cls              # HTTP Mock for test isolation
+│   │   └── AccountWeatherControllerTest.cls    # 100% coverage unit tests
+│   └── lwc/
+│       └── accountWeather/                     # UI Web Component (HTML/JS/XML)
